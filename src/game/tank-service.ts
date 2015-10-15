@@ -36,6 +36,15 @@ export class TankService extends Tank {
 	public rightStop = () => {
 		console.log(this.coordinates);
 	};
+	public rotate = (x:number, y:number) => {
+		var a = x - this.coordinates.x,
+			b = y - this.coordinates.y;
+
+		this.coordinates.gun = Math.atan2(b, a);
+	};
+	public shot = (e) => {
+		console.log('BOOM!');
+	};
 
 	private calculateMove = ():MoveCoordinates => {
 		return {
@@ -48,7 +57,8 @@ export class TankService extends Tank {
 		this.coordinates = {
 			x: 400,
 			y: 300,
-			angle: 50,
+			angle: 0,
+			gun: 0,		// gun angle
 			speed: 10
 		};
 

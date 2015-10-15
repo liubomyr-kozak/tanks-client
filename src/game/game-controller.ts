@@ -1,10 +1,10 @@
 import {controller} from "../annotations";
 
-@controller('GameController', ['hotkeys', 'tank'])
+@controller('GameController', ['hotkeys', 'tank', '$scope'])
 export class GameController {
 	private addHotkey: Function;
 
-	constructor(hotkeys, tank) {
+	constructor(hotkeys, tank, $scope) {
 		/**
 		 * @method addHotkey
 		 *
@@ -59,5 +59,12 @@ export class GameController {
 			tank.rightStop();
 		});
 
+		$scope.onMouseMove = function($event) {
+			tank.rotate($event.clientX, $event.clientY);
+		};
+
+		$scope.onMouseClick = function($event) {
+			tank.shot($event);
+		}
 	}
 }
