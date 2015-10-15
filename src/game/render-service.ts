@@ -18,7 +18,6 @@ export class RenderService {
 		this.context.translate(x, y);
 		this.context.rotate(angle * Math.PI / 180);
 		this.context.drawImage(this.tankImage, -(this.tankImage.width/2), -(this.tankImage.height/2));
-		this.context.drawImage(this.gunImage, -(this.gunImage.width/2), -(this.gunImage.height/2));
 		this.context.restore();
 	};
 	private drawGun = (x:number, y:number, angle:number):void => {
