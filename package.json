@@ -8,7 +8,7 @@
     },
     "dependencies": {
       "angular": "github:angular/bower-angular@^1.4.7",
-      "angular-hotkeys": "bower:chieffancypants/angular-hotkeys@^1.6.0",
+      "angular-hotkeys": "github:chieffancypants/angular-hotkeys@^1.6.0",
       "angular-material": "github:angular/bower-material@^0.11.2",
       "angular-route": "github:angular/bower-angular-route@^1.4.7",
       "core-js": "npm:core-js@^0.9.4",

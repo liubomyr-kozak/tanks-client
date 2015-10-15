@@ -8,8 +8,7 @@ System.config({
   },
   paths: {
     "github:*": "jspm_packages/github/*",
-    "npm:*": "jspm_packages/npm/*",
-    "bower:*": "jspm_packages/bower/*"
+    "npm:*": "jspm_packages/npm/*"
   },
 
   packages: {
@@ -29,7 +28,7 @@ System.config({
 
   map: {
     "angular": "github:angular/bower-angular@1.4.7",
-    "angular-hotkeys": "bower:chieffancypants/angular-hotkeys@1.6.0",
+    "angular-hotkeys": "github:chieffancypants/angular-hotkeys@1.6.0",
     "angular-material": "github:angular/bower-material@0.11.2",
     "angular-route": "github:angular/bower-angular-route@1.4.7",
     "core-js": "npm:core-js@0.9.18",
@@ -37,9 +36,6 @@ System.config({
     "text": "github:systemjs/plugin-text@0.0.2",
     "ts": "github:frankwallis/plugin-typescript@2.0.17",
     "typescript": "npm:typescript@1.6.2",
-    "bower:chieffancypants/angular-hotkeys@1.6.0": {
-      "css": "github:systemjs/plugin-css@0.1.18"
-    },
     "github:angular/bower-angular-animate@1.4.7": {
       "angular": "github:angular/bower-angular@1.4.7"
     },
@@ -54,6 +50,9 @@ System.config({
       "angular-animate": "github:angular/bower-angular-animate@1.4.7",
       "angular-aria": "github:angular/bower-angular-aria@1.4.7",
       "css": "github:systemjs/plugin-css@0.1.18"
+    },
+    "github:chieffancypants/angular-hotkeys@1.6.0": {
+      "angular": "github:angular/bower-angular@1.4.7"
     },
     "github:jspm/nodelibs-process@0.1.1": {
       "process": "npm:process@0.10.1"
