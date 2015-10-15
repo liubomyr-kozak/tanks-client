@@ -40,5 +40,24 @@ export class GameController {
 		}, () => {
 			tank.forwardStop();
 		});
+
+		this.addHotkey('k', () => {
+			tank.backwardStart();
+		}, () => {
+			tank.backwardStop();
+		});
+
+		this.addHotkey('j', () => {
+			tank.leftStart();
+		}, () => {
+			tank.leftStop();
+		});
+
+		this.addHotkey('l', () => {
+			tank.rightStart();
+		}, () => {
+			tank.rightStop();
+		});
+
 	}
 }

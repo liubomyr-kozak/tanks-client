@@ -7,7 +7,28 @@ export class TankService extends Tank {
 		this.coordinates.x += 10;
 	};
 	public forwardStop = () => {
-		console.log('скинув тапку');
+		console.log(this.coordinates);
+	};
+
+	public backwardStart = () => {
+		this.coordinates.x -= 10;
+	};
+	public backwardStop = () => {
+		console.log(this.coordinates);
+	};
+
+	public leftStart = () => {
+		this.coordinates.angle -= 1;
+	};
+	public leftStop = () => {
+		console.log(this.coordinates);
+	};
+
+	public rightStart = () => {
+		this.coordinates.angle += 1;
+	};
+	public rightStop = () => {
+		console.log(this.coordinates);
 	};
 
 	constructor() {
