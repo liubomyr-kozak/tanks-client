@@ -4,7 +4,7 @@ import {Tank} from './tank';
 @service('tank')
 export class TankService extends Tank {
 	public forwardStart = () => {
-		console.log('дав газу!');
+		this.coordinates.x += 10;
 	};
 	public forwardStop = () => {
 		console.log('скинув тапку');
@@ -13,8 +13,8 @@ export class TankService extends Tank {
 	constructor() {
 		this.coordinates = {
 			x: 30,
-			y: 100,
-			angle: 50,
+			y: 30,
+			angle: 10,
 			speed: 10
 		};
 
