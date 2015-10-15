@@ -40,7 +40,7 @@ export class TankService extends Tank {
 		var a = x - this.coordinates.x,
 			b = y - this.coordinates.y;
 
-		this.coordinates.gun = Math.atan2(b, a);
+		this.arms.angle = Math.atan2(b, a);
 	};
 	public shot = (e) => {
 		console.log('BOOM!');
@@ -58,7 +58,6 @@ export class TankService extends Tank {
 			x: 400,
 			y: 300,
 			angle: 0,
-			gun: 0,		// gun angle
 			speed: 10
 		};
 
@@ -68,7 +67,7 @@ export class TankService extends Tank {
 		};
 
 		this.arms = {
-			angle: 50,
+			angle: 0,
 			primary: {
 				ammo: 20,
 				power: 75,

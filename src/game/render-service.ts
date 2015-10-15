@@ -39,6 +39,7 @@ export class RenderService {
 		this.canvas.height = 1000;
 		this.tankImage.src = '../../img/platform.png';
 		this.gunImage.src = '../../img/gun.png';
+
 		this.renderLoop = this.$interval(() => {
 			this.drawTank(
 				this.tank.coordinates.x,
@@ -48,7 +49,7 @@ export class RenderService {
 			this.drawGun(
 				this.tank.coordinates.x,
 				this.tank.coordinates.y,
-				this.tank.coordinates.gun
+				this.tank.arms.angle
 			);
 		}, 24);
 	}
