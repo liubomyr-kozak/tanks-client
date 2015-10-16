@@ -23,13 +23,13 @@ export class RenderService {
 	private drawGun = (x:number, y:number, angle:number):void => {
 		this.context.save();
 		this.context.translate(x, y);
-		this.context.rotate(angle * Math.PI / 180);
+		this.context.rotate(angle);
 		this.context.drawImage(this.gunImage, -(this.gunImage.width / 2), -(this.gunImage.height / 2));
 		this.context.restore();
 	};
 	private drawTargetAngle = (x:number, y:number, angle:number):void => {
-		var a = Math.cos(angle * Math.PI / 180);
-		var	b = Math.sin(angle * Math.PI / 180);
+		var a = Math.cos(angle);
+		var	b = Math.sin(angle);
 
 		// TODO add firing range ration to (a, b)
 		this.context.save();
@@ -51,7 +51,7 @@ export class RenderService {
 
 		this.context.save();
 		this.context.translate(x, y);
-		this.context.rotate(angle * Math.PI / 180);
+		this.context.rotate(angle);
 		this.context.beginPath();
 		this.context.lineWidth = 350;
 		this.context.strokeStyle = gradient;

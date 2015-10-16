@@ -56,7 +56,7 @@ export class TankService extends Tank {
 		}
 	};
 	private calculateTargetAngle = (x:number, y:number):number => {
-		return Math.atan2(y, x) * 180 / Math.PI;
+		return Math.atan2(y, x);
 	};
 
 	constructor($injector) {
@@ -75,7 +75,7 @@ export class TankService extends Tank {
 		};
 		this.turret = {
 			angle: 1,
-			speed: 2,
+			speed: 0.05,
 			turret: {
 				angle: 15
 			},
@@ -85,13 +85,15 @@ export class TankService extends Tank {
 				var stop = this.turret.targetAngle;
 				var start = this.turret.angle;
 
-				if (stop - start > 0.5 || start - stop > 0.5) {
+				if (stop - start > 0.1 || start - stop > 0.1) {
 					console.log('stop: ' + stop + ' start: ' + start + ' angle: ' + this.turret.angle);
 					if (this.turret.targetAngle > this.turret.angle) {
 						this.turret.angle += this.turret.speed;
 					} else {
 						this.turret.angle -= this.turret.speed;
 					}
+				} else {
+					this.turret.angle = this.turret.targetAngle;
 				}
 			}, 50),
 			primary: {
