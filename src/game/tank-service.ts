@@ -14,7 +14,6 @@ export class TankService extends Tank {
 		this.coordinates.y += c.y;
 	};
 	public forwardStop = () => {
-		console.log(this.coordinates);
 	};
 	public backwardStart = () => {
 		var c = this.calculateMove();
@@ -22,19 +21,16 @@ export class TankService extends Tank {
 		this.coordinates.y -= c.y;
 	};
 	public backwardStop = () => {
-		console.log(this.coordinates);
 	};
 	public leftStart = () => {
-		this.coordinates.angle -= 3;
+		this.coordinates.angle -= 3 * Math.PI / 180;
 	};
 	public leftStop = () => {
-		console.log(this.coordinates);
 	};
 	public rightStart = () => {
-		this.coordinates.angle += 3;
+		this.coordinates.angle += 3 * Math.PI / 180;
 	};
 	public rightStop = () => {
-		console.log(this.coordinates);
 	};
 	public updateGunAngle = (x:number, y:number) => {
 		var a = x - this.coordinates.x;
@@ -42,17 +38,17 @@ export class TankService extends Tank {
 		this.turret.targetAngle = this.calculateTargetAngle(a, b);
 	};
 	public smallShot = () => {
-		console.log('smallShot');
+		console.log('boom!');
 	};
 	public bigShot = () => {
-		console.log('BOOM! bigShot');
+		console.log('BOOOM!!');
 	};
 
 	private $interval;
 	private calculateMove = ():MoveCoordinates => {
 		return {
-			x: Math.cos(this.coordinates.angle * Math.PI / 180) * this.coordinates.speed,
-			y: Math.sin(this.coordinates.angle * Math.PI / 180) * this.coordinates.speed
+			x: Math.cos(this.coordinates.angle) * this.coordinates.speed,
+			y: Math.sin(this.coordinates.angle) * this.coordinates.speed
 		}
 	};
 	private calculateTargetAngle = (x:number, y:number):number => {
@@ -86,7 +82,6 @@ export class TankService extends Tank {
 				var start = this.turret.angle;
 
 				if (stop - start > 0.1 || start - stop > 0.1) {
-					console.log('stop: ' + stop + ' start: ' + start + ' angle: ' + this.turret.angle);
 					if (this.turret.targetAngle > this.turret.angle) {
 						this.turret.angle += this.turret.speed;
 					} else {
