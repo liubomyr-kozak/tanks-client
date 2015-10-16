@@ -19,6 +19,8 @@ interface Turret {
 	angle: number;
 	primary: Weapon;
 	secondary: Weapon;
+	rotationAngle: number;
+	rotate: Promise;
 }
 
 interface GameObject {
