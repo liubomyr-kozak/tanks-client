@@ -4,7 +4,8 @@ import {controller} from "../annotations";
 export class GameController {
 	constructor(tank, $scope) {
 		$scope.onKeypress = function ($event) {
-			switch($event.keyCode) {
+			var key = $event.keyCode || $event.which;
+			switch (key) {
 				case 105:
 					tank.forward();
 					break;
