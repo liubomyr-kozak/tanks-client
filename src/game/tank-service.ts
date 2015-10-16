@@ -6,9 +6,9 @@ interface MoveCoordinates {
 	y: number;
 }
 
-@service('tank')
+@service('tank', ['$injector'])
 export class TankService extends Tank {
-	constructor() {
+	constructor($injector) {
 		this.coordinates = {
 			x: 400,
 			y: 300,
@@ -36,8 +36,22 @@ export class TankService extends Tank {
 
 		this.gun = {
 			angle: 0,
-			speed: 1
+			speed: 0.01
 		};
+
+		this.newGunAngle = this.gun.angle;
+
+		this.$interval = $injector.get('$interval');
+
+		this.rotate = this.$interval(() => {
+			var stop = this.newGunAngle.toFixed(2),
+				start = this.gun.angle.toFixed(2);
+
+			if (stop != start) {
+				console.log('stop: '+ stop + ' start: ' + start);
+				this.newGunAngle > this.gun.angle ? this.gun.angle+= this.gun.speed : this.gun.angle-= this.gun.speed;
+			}
+		}, 100);
 	}
 
 	public forwardStart = () => {
@@ -68,13 +82,13 @@ export class TankService extends Tank {
 	public rightStop = () => {
 		console.log(this.coordinates);
 	};
-	public rotate = (x:number, y:number) => {
+	public updateGunAngle = (x:number, y:number) => {
 		var a = x - this.coordinates.x,
 			b = y - this.coordinates.y;
 
-		this.gun.angle = Math.atan2(b, a);
+		this.newGunAngle = Math.atan2(b, a);
 	};
-	public shot = (e) => {
+	public gunShot = (e) => {
 		console.log('BOOM!');
 	};
 

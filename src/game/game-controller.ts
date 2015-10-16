@@ -60,11 +60,11 @@ export class GameController {
 		});
 
 		$scope.onMouseMove = function($event) {
-			tank.rotate($event.clientX, $event.clientY);
+			tank.updateGunAngle($event.clientX, $event.clientY);
 		};
 
 		$scope.onMouseClick = function($event) {
-			tank.shot($event);
+			tank.gunShot($event);
 		}
 	}
 }
