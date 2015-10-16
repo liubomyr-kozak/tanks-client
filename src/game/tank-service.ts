@@ -87,7 +87,6 @@ export class TankService extends Tank {
 
 				if (stop - start > 0.5 || start - stop > 0.5) {
 					console.log('stop: ' + stop + ' start: ' + start + ' angle: ' + this.turret.angle);
-
 					if (this.turret.targetAngle > this.turret.angle) {
 						this.turret.angle += this.turret.speed;
 					} else {
