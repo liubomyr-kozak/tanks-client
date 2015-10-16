@@ -54,6 +54,22 @@ export class TankService extends Tank {
 	private calculateTargetAngle = (x:number, y:number):number => {
 		return Math.atan2(y, x);
 	};
+	private normalizeAngle = (angle:number):number => {
+		return angle + ((angle > Math.PI) ? -(2 * Math.PI) : (angle < -(Math.PI) ? 2 * Math.PI : 0));
+	};
+	private turretRotationStep = () => {
+		var deltaAngle = this.normalizeAngle(this.turret.targetAngle - this.turret.angle);
+
+		if (deltaAngle > 0.09 || deltaAngle < -(0.09)) {
+			if (deltaAngle > 0) {
+				this.turret.angle += this.turret.speed;
+			} else {
+				this.turret.angle -= this.turret.speed;
+			}
+		} else {
+			this.turret.angle = this.turret.targetAngle;
+		}
+	};
 
 	constructor($injector) {
 		this.$interval = $injector.get('$interval');
@@ -72,25 +88,8 @@ export class TankService extends Tank {
 		this.turret = {
 			angle: 1,
 			speed: 0.05,
-			turret: {
-				angle: 15
-			},
 			targetAngle: 1,
-
-			rotate: this.$interval(() => {
-				var stop = this.turret.targetAngle;
-				var start = this.turret.angle;
-
-				if (stop - start > 0.1 || start - stop > 0.1) {
-					if (this.turret.targetAngle > this.turret.angle) {
-						this.turret.angle += this.turret.speed;
-					} else {
-						this.turret.angle -= this.turret.speed;
-					}
-				} else {
-					this.turret.angle = this.turret.targetAngle;
-				}
-			}, 50),
+			rotate: this.$interval(this.turretRotationStep, 50),
 			primary: {
 				ammo: 20,
 				power: 75,
