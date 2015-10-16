@@ -27,31 +27,38 @@ export class RenderService {
 		this.context.drawImage(this.gunImage, -(this.gunImage.width / 2), -(this.gunImage.height / 2));
 		this.context.restore();
 	};
-	private drawSight = (x:number, y:number, targetAngle:number, currentAngle:number):void => {
-		var a = Math.cos(targetAngle * Math.PI / 180),
-		    b = Math.sin(targetAngle * Math.PI / 180);
-		var currentX = Math.cos(currentAngle * Math.PI / 180),
-			currentY = Math.sin(currentAngle * Math.PI / 180);
+	private drawTargetAngle = (x:number, y:number, angle:number):void => {
+		var a = Math.cos(angle * Math.PI / 180);
+		var	b = Math.sin(angle * Math.PI / 180);
 
-		// TODO add firing range ration to (a, b) & (currentX, currentY)
+		// TODO add firing range ration to (a, b)
 		this.context.save();
 		this.context.translate(x, y);
+		this.context.beginPath();
 		this.context.lineWidth = 1;
 		this.context.setLineDash([5, 15]);
-
-		this.context.beginPath();
 		this.context.strokeStyle = 'green';
 		this.context.moveTo(0, 0);
 		this.context.lineTo(a * 400, b * 400);
 		this.context.stroke();
-
-		this.context.beginPath();
-		this.context.strokeStyle = 'red';
-		this.context.moveTo(0, 0);
-		this.context.lineTo(currentX * 400, currentY * 400);
-		this.context.stroke();
-
 		this.context.restore();
+	};
+	private drawCurrentAngle = (x:number, y:number, angle:number):void => {
+		var gradient = this.context.createRadialGradient(0, 0, 350, 0, 0, 0);
+		gradient.addColorStop(0, "white");
+		gradient.addColorStop(1, "red");
+
+		// TODO add firing range ration to (a, b)
+		this.context.save();
+		this.context.translate(x, y);
+		this.context.rotate(angle * Math.PI / 180);
+		this.context.beginPath();
+		this.context.lineWidth = 350;
+		this.context.strokeStyle = gradient;
+		this.context.arc(0, 0, 250, -0.05, 0.05);
+		this.context.stroke();
+		this.context.restore();
+
 	};
 
 	constructor($injector) {
@@ -76,11 +83,15 @@ export class RenderService {
 				this.tank.coordinates.y,
 				this.tank.turret.angle
 			);
-			this.drawSight(
+			this.drawCurrentAngle(
 				this.tank.coordinates.x,
 				this.tank.coordinates.y,
-				this.tank.turret.targetAngle,
 				this.tank.turret.angle
+			);
+			this.drawTargetAngle(
+				this.tank.coordinates.x,
+				this.tank.coordinates.y,
+				this.tank.turret.targetAngle
 			);
 		}, 24);
 	}
