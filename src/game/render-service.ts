@@ -12,28 +12,32 @@ export class RenderService {
 	private gunImage:HTMLImageElement = document.createElement('img');
 	private context:CanvasRenderingContext2D = this.canvas.getContext('2d');
 
-	private drawTank = (x:number, y:number, angle:number):void => {
-		this.context.save();
+	private clearField = ():void => {
 		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-		this.context.translate(x, y);
-		this.context.rotate(angle);
+	};
+
+	private drawTank = ():void => {
+		this.context.save();
+		this.context.translate(this.tank.coordinates.x, this.tank.coordinates.y);
+		this.context.rotate(this.tank.coordinates.angle);
 		this.context.drawImage(this.tankImage, -(this.tankImage.width / 2), -(this.tankImage.height / 2));
 		this.context.restore();
 	};
-	private drawGun = (x:number, y:number, angle:number):void => {
+
+	private drawGun = ():void => {
 		this.context.save();
-		this.context.translate(x, y);
-		this.context.rotate(angle);
+		this.context.translate(this.tank.coordinates.x, this.tank.coordinates.y);
+		this.context.rotate(this.tank.turret.angle);
 		this.context.drawImage(this.gunImage, -(this.gunImage.width / 2), -(this.gunImage.height / 2));
 		this.context.restore();
 	};
-	private drawTargetAngle = (x:number, y:number, angle:number):void => {
-		var a = Math.cos(angle);
-		var	b = Math.sin(angle);
+	private drawTargetAngle = ():void => {
+		var a = Math.cos(this.tank.turret.targetAngle);
+		var	b = Math.sin(this.tank.turret.targetAngle);
 
 		// TODO add firing range ration to (a, b)
 		this.context.save();
-		this.context.translate(x, y);
+		this.context.translate(this.tank.coordinates.x, this.tank.coordinates.y);
 		this.context.beginPath();
 		this.context.lineWidth = 1;
 		this.context.setLineDash([5, 50]);
@@ -43,15 +47,15 @@ export class RenderService {
 		this.context.stroke();
 		this.context.restore();
 	};
-	private drawCurrentAngle = (x:number, y:number, angle:number):void => {
-		// TODO add firing range ration to (a, b) & gradient
+	private drawCurrentAngle = ():void => {
+		// TODO: add firing range ration to (a, b) & gradient
 		var gradient = this.context.createRadialGradient(0, 0, 400, 0, 0, 0);
 		gradient.addColorStop(0, "white");
 		gradient.addColorStop(1, "red");
 
 		this.context.save();
-		this.context.translate(x, y);
-		this.context.rotate(angle);
+		this.context.translate(this.tank.coordinates.x, this.tank.coordinates.y);
+		this.context.rotate(this.tank.turret.angle);
 		this.context.beginPath();
 		this.context.lineWidth = 350;
 		this.context.strokeStyle = gradient;
@@ -72,27 +76,13 @@ export class RenderService {
 		this.tankImage.src = '../../img/platform.png';
 		this.gunImage.src = '../../img/turret.png';
 
+
 		this.renderLoop = this.$interval(() => {
-			this.drawTank(
-				this.tank.coordinates.x,
-				this.tank.coordinates.y,
-				this.tank.coordinates.angle
-			);
-			this.drawCurrentAngle(
-				this.tank.coordinates.x,
-				this.tank.coordinates.y,
-				this.tank.turret.angle
-			);
-			this.drawTargetAngle(
-				this.tank.coordinates.x,
-				this.tank.coordinates.y,
-				this.tank.turret.targetAngle
-			);
-			this.drawGun(
-				this.tank.coordinates.x,
-				this.tank.coordinates.y,
-				this.tank.turret.angle
-			);
+			this.clearField();
+			this.drawTank();
+			this.drawCurrentAngle();
+			this.drawTargetAngle();
+			this.drawGun();
 		}, 24);
 	}
 }
