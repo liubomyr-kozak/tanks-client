@@ -49,7 +49,7 @@ export class RenderService {
 			this.drawGun(
 				this.tank.coordinates.x,
 				this.tank.coordinates.y,
-				this.tank.arms.angle
+				this.tank.gun.angle
 			);
 		}, 24);
 	}
