@@ -15,7 +15,7 @@ interface Weapon {
 	power: number;
 }
 
-interface Arms {
+interface Turret {
 	angle: number;
 	primary: Weapon;
 	secondary: Weapon;
@@ -27,11 +27,11 @@ interface GameObject {
 }
 
 interface MilitaryObject extends GameObject {
-	arms: Arms;
+	turret: Turret;
 }
 
 export class Tank implements MilitaryObject {
 	public coordinates;
 	public condition;
-	public arms;
+	public turret;
 }

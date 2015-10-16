@@ -23,7 +23,7 @@ export class RenderService {
 	private drawGun = (x:number, y:number, angle:number):void => {
 		this.context.save();
 		this.context.translate(x, y);
-		this.context.rotate(angle);
+		this.context.rotate(angle * Math.PI / 180);
 		this.context.drawImage(this.gunImage, -(this.gunImage.width/2), -(this.gunImage.height/2));
 		this.context.restore();
 	};
@@ -49,7 +49,7 @@ export class RenderService {
 			this.drawGun(
 				this.tank.coordinates.x,
 				this.tank.coordinates.y,
-				this.tank.gun.angle
+				this.tank.turret.angle
 			);
 		}, 24);
 	}

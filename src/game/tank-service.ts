@@ -8,52 +8,6 @@ interface MoveCoordinates {
 
 @service('tank', ['$injector'])
 export class TankService extends Tank {
-	constructor($injector) {
-		this.coordinates = {
-			x: 400,
-			y: 300,
-			angle: 0,
-			speed: 10
-		};
-
-		this.condition = {
-			health: 100,
-			armor: 100
-		};
-
-		this.arms = {
-			primary: {
-				ammo: 20,
-				power: 75,
-				speed: 1
-			},
-			secondary: {
-				ammo: 2000,
-				power: 2,
-				speed: 10
-			}
-		};
-
-		this.gun = {
-			angle: 0,
-			speed: 1
-		};
-
-		this.newGunAngle = this.gun.angle;
-
-		this.$interval = $injector.get('$interval');
-
-		this.rotate = this.$interval(() => {
-			var stop = this.newGunAngle.toFixed(2),
-				start = this.gun.angle.toFixed(2);
-
-			if (stop != start) {
-				console.log('stop: '+ stop + ' start: ' + start);
-				this.newGunAngle > this.gun.angle ? this.gun.angle+= 0.01 : this.gun.angle-= 0.01
-			}
-		}, 50);
-	}
-
 	public forwardStart = () => {
 		var c = this.calculateMove();
 		this.coordinates.x += c.x;
@@ -83,45 +37,66 @@ export class TankService extends Tank {
 		console.log(this.coordinates);
 	};
 	public updateGunAngle = (x:number, y:number) => {
-		var a = x - this.coordinates.x,
-			b = y - this.coordinates.y;
+		var a = x - this.coordinates.x;
+		var b = y - this.coordinates.y;
 
-		this.newGunAngle = Math.atan2(b, a); // get new angle
-
-		//this.stopRotate();	// stops any running interval
-		//this.startRotate();	// starting new interval
+		this.rotationAngle = Math.atan2(b, a) * 180 / Math.PI;
 	};
-	public smallShot = (e) => {
+	public smallShot = () => {
 		console.log('smallShot');
 	};
-	public bigShot = (e) => {
+	public bigShot = () => {
 		console.log('BOOM! bigShot');
 	};
 
-	private promise;
-
-	private stopRotate = () => {
-		console.log('stop rotate');
-		this.$interval.cancel(this.promise);
-	};
-	private startRotate = () => {
-		this.promise = this.$interval(() => {
-			var stop = this.newGunAngle.toFixed(1),
-				start = this.gun.angle.toFixed(1);
-
-			if (stop != start) {
-				console.log('rotate from: '+ start + ' to: ' + stop);
-				this.newGunAngle > this.gun.angle ? this.gun.angle+= 0.1 : this.gun.angle-= 0.1;
-			} else {
-				this.stopRotate();
-			}
-		}, 50);
-	};
-
+	private rotationAngle:number;
+	private $interval;
+	private rotate:Promise;
 	private calculateMove = ():MoveCoordinates => {
 		return {
 			x: Math.cos(this.coordinates.angle * Math.PI / 180) * this.coordinates.speed,
 			y: Math.sin(this.coordinates.angle * Math.PI / 180) * this.coordinates.speed
 		}
 	};
+
+	constructor($injector) {
+		this.$interval = $injector.get('$interval');
+
+		// TODO: hardcoded model
+		this.coordinates = {
+			x: 400,
+			y: 300,
+			angle: 0,
+			speed: 10
+		};
+		this.condition = {
+			health: 100,
+			armor: 100
+		};
+		this.turret = {
+			angle: 1,
+			speed: 2,
+			primary: {
+				ammo: 20,
+				power: 75,
+				speed: 1
+			},
+			secondary: {
+				ammo: 2000,
+				power: 2,
+				speed: 10
+			}
+		};
+
+		this.rotationAngle = this.turret.angle;
+		this.rotate = this.$interval(() => {
+			var stop = this.rotationAngle;
+			var start = this.turret.angle;
+
+			if (stop - start > 0.5 || start - stop > 0.5) {
+				console.log('stop: ' + stop + ' start: ' + start + ' angle: ' + this.turret.angle);
+				this.rotationAngle > this.turret.angle ? this.turret.angle += 0.5 : this.turret.angle -= 0.5
+			}
+		}, 50);
+	}
 }
