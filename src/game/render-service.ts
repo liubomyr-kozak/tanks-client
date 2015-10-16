@@ -38,7 +38,7 @@ export class RenderService {
 		this.canvas.width = 1500;
 		this.canvas.height = 1000;
 		this.tankImage.src = '../../img/platform.png';
-		this.gunImage.src = '../../img/gun.png';
+		this.gunImage.src = '../../img/turret.png';
 
 		this.renderLoop = this.$interval(() => {
 			this.drawTank(
