@@ -11,20 +11,20 @@ export class RenderService {
 	private tankImage:HTMLImageElement = document.createElement('img');
 	private gunImage:HTMLImageElement = document.createElement('img');
 	private context:CanvasRenderingContext2D = this.canvas.getContext('2d');
-	
+
 	private drawTank = (x:number, y:number, angle:number):void => {
 		this.context.save();
 		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		this.context.translate(x, y);
 		this.context.rotate(angle * Math.PI / 180);
-		this.context.drawImage(this.tankImage, -(this.tankImage.width/2), -(this.tankImage.height/2));
+		this.context.drawImage(this.tankImage, -(this.tankImage.width / 2), -(this.tankImage.height / 2));
 		this.context.restore();
 	};
 	private drawGun = (x:number, y:number, angle:number):void => {
 		this.context.save();
 		this.context.translate(x, y);
 		this.context.rotate(angle * Math.PI / 180);
-		this.context.drawImage(this.gunImage, -(this.gunImage.width/2), -(this.gunImage.height/2));
+		this.context.drawImage(this.gunImage, -(this.gunImage.width / 2), -(this.gunImage.height / 2));
 		this.context.restore();
 	};
 
