@@ -88,8 +88,11 @@ export class TankService extends Tank {
 
 		this.newGunAngle = Math.atan2(b, a);
 	};
-	public gunShot = (e) => {
-		console.log('BOOM!');
+	public smallShot = (e) => {
+		console.log('smallShot');
+	};
+	public bigShot = (e) => {
+		console.log('BOOM! bigShot');
 	};
 
 	private calculateMove = ():MoveCoordinates => {

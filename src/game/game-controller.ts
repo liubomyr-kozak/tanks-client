@@ -64,7 +64,11 @@ export class GameController {
 		};
 
 		$scope.onMouseClick = function($event) {
-			tank.gunShot($event);
+			tank.smallShot($event);
+		};
+
+		$scope.onMouseDbClick = function($event) {
+			tank.bigShot($event);
 		}
 	}
 }
