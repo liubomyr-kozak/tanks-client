@@ -7,7 +7,7 @@ export class RenderService {
 	private tank;
 	private $rootScope;
 	private $interval;
-	private renderLoop:Promise;
+	private renderLoop;
 	private tankImage:HTMLImageElement = document.createElement('img');
 	private gunImage:HTMLImageElement = document.createElement('img');
 	private context:CanvasRenderingContext2D = this.canvas.getContext('2d');
@@ -19,7 +19,7 @@ export class RenderService {
 	private drawTank = ():void => {
 		this.context.save();
 		this.context.translate(this.tank.coordinates.x, this.tank.coordinates.y);
-		this.context.rotate(this.tank.coordinates.angle);
+		this.context.rotate(this.tank.platform.angle);
 		this.context.drawImage(this.tankImage, -(this.tankImage.width / 2), -(this.tankImage.height / 2));
 		this.context.restore();
 	};

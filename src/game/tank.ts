@@ -1,8 +1,6 @@
 interface Coordinates {
 	x: number;
 	y: number;
-	angle: number;
-	speed: number;
 }
 
 interface Condition {
@@ -15,12 +13,19 @@ interface Weapon {
 	power: number;
 }
 
+interface Platform {
+	angle: number;
+	movementSpeed: number;
+	rotationSpeed: number;
+	movement;
+}
+
 interface Turret {
 	angle: number;
+	rotationAngle: number;
 	primary: Weapon;
 	secondary: Weapon;
-	rotationAngle: number;
-	rotate: Promise;
+	rotation;
 }
 
 interface GameObject {
@@ -29,11 +34,13 @@ interface GameObject {
 }
 
 interface MilitaryObject extends GameObject {
+	platform: Platform;
 	turret: Turret;
 }
 
 export class Tank implements MilitaryObject {
 	public coordinates;
 	public condition;
+	public platform;
 	public turret;
 }

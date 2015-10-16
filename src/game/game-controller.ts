@@ -6,16 +6,16 @@ export class GameController {
 		$scope.onKeypress = function ($event) {
 			switch($event.keyCode) {
 				case 105:
-					tank.forwardStart();
+					tank.forward();
 					break;
 				case 107:
-					tank.backwardStart();
+					tank.backward();
 					break;
 				case 106:
-					tank.leftStart();
+					tank.left();
 					break;
 				case 108:
-					tank.rightStart();
+					tank.right();
 					break;
 			}
 		};
