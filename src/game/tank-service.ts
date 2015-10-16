@@ -42,6 +42,7 @@ export class TankService extends Tank {
 		this.newGunAngle = this.gun.angle;
 
 		this.$interval = $injector.get('$interval');
+
 		this.rotate = this.$interval(() => {
 			var stop = this.newGunAngle.toFixed(2),
 				start = this.gun.angle.toFixed(2);
@@ -116,7 +117,6 @@ export class TankService extends Tank {
 			}
 		}, 50);
 	};
-
 
 	private calculateMove = ():MoveCoordinates => {
 		return {
