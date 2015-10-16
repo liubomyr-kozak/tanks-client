@@ -36,22 +36,21 @@ export class TankService extends Tank {
 
 		this.gun = {
 			angle: 0,
-			speed: 0.01
+			speed: 1
 		};
 
 		this.newGunAngle = this.gun.angle;
 
 		this.$interval = $injector.get('$interval');
-
 		this.rotate = this.$interval(() => {
 			var stop = this.newGunAngle.toFixed(2),
 				start = this.gun.angle.toFixed(2);
 
 			if (stop != start) {
 				console.log('stop: '+ stop + ' start: ' + start);
-				this.newGunAngle > this.gun.angle ? this.gun.angle+= this.gun.speed : this.gun.angle-= this.gun.speed;
+				this.newGunAngle > this.gun.angle ? this.gun.angle+= 0.01 : this.gun.angle-= 0.01
 			}
-		}, 100);
+		}, 50);
 	}
 
 	public forwardStart = () => {
@@ -86,7 +85,10 @@ export class TankService extends Tank {
 		var a = x - this.coordinates.x,
 			b = y - this.coordinates.y;
 
-		this.newGunAngle = Math.atan2(b, a);
+		this.newGunAngle = Math.atan2(b, a); // get new angle
+
+		//this.stopRotate();	// stops any running interval
+		//this.startRotate();	// starting new interval
 	};
 	public smallShot = (e) => {
 		console.log('smallShot');
@@ -94,6 +96,27 @@ export class TankService extends Tank {
 	public bigShot = (e) => {
 		console.log('BOOM! bigShot');
 	};
+
+	private promise;
+
+	private stopRotate = () => {
+		console.log('stop rotate');
+		this.$interval.cancel(this.promise);
+	};
+	private startRotate = () => {
+		this.promise = this.$interval(() => {
+			var stop = this.newGunAngle.toFixed(1),
+				start = this.gun.angle.toFixed(1);
+
+			if (stop != start) {
+				console.log('rotate from: '+ start + ' to: ' + stop);
+				this.newGunAngle > this.gun.angle ? this.gun.angle+= 0.1 : this.gun.angle-= 0.1;
+			} else {
+				this.stopRotate();
+			}
+		}, 50);
+	};
+
 
 	private calculateMove = ():MoveCoordinates => {
 		return {
