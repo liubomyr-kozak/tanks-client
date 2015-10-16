@@ -36,8 +36,8 @@ export class RenderService {
 		this.context.translate(x, y);
 		this.context.beginPath();
 		this.context.lineWidth = 1;
-		this.context.setLineDash([5, 15]);
-		this.context.strokeStyle = 'green';
+		this.context.setLineDash([5, 50]);
+		this.context.strokeStyle = 'red';
 		this.context.moveTo(0, 0);
 		this.context.lineTo(a * 400, b * 400);
 		this.context.stroke();
@@ -78,11 +78,6 @@ export class RenderService {
 				this.tank.coordinates.y,
 				this.tank.coordinates.angle
 			);
-			this.drawGun(
-				this.tank.coordinates.x,
-				this.tank.coordinates.y,
-				this.tank.turret.angle
-			);
 			this.drawCurrentAngle(
 				this.tank.coordinates.x,
 				this.tank.coordinates.y,
@@ -92,6 +87,11 @@ export class RenderService {
 				this.tank.coordinates.x,
 				this.tank.coordinates.y,
 				this.tank.turret.targetAngle
+			);
+			this.drawGun(
+				this.tank.coordinates.x,
+				this.tank.coordinates.y,
+				this.tank.turret.angle
 			);
 		}, 24);
 	}
