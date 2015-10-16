@@ -44,18 +44,18 @@ export class RenderService {
 		this.context.restore();
 	};
 	private drawCurrentAngle = (x:number, y:number, angle:number):void => {
-		var gradient = this.context.createRadialGradient(0, 0, 350, 0, 0, 0);
+		// TODO add firing range ration to (a, b) & gradient
+		var gradient = this.context.createRadialGradient(0, 0, 400, 0, 0, 0);
 		gradient.addColorStop(0, "white");
 		gradient.addColorStop(1, "red");
 
-		// TODO add firing range ration to (a, b)
 		this.context.save();
 		this.context.translate(x, y);
 		this.context.rotate(angle * Math.PI / 180);
 		this.context.beginPath();
 		this.context.lineWidth = 350;
 		this.context.strokeStyle = gradient;
-		this.context.arc(0, 0, 250, -0.05, 0.05);
+		this.context.arc(0, 0, 400, -0.05, 0.05);
 		this.context.stroke();
 		this.context.restore();
 
