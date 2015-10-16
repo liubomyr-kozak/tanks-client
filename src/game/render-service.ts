@@ -27,7 +27,32 @@ export class RenderService {
 		this.context.drawImage(this.gunImage, -(this.gunImage.width / 2), -(this.gunImage.height / 2));
 		this.context.restore();
 	};
+	private drawSight = (x:number, y:number, targetAngle:number, currentAngle:number):void => {
+		var a = Math.cos(targetAngle * Math.PI / 180),
+		    b = Math.sin(targetAngle * Math.PI / 180);
+		var currentX = Math.cos(currentAngle * Math.PI / 180),
+			currentY = Math.sin(currentAngle * Math.PI / 180);
 
+		// TODO add firing range ration to (a, b) & (currentX, currentY)
+		this.context.save();
+		this.context.translate(x, y);
+		this.context.lineWidth = 1;
+		this.context.setLineDash([5, 15]);
+
+		this.context.beginPath();
+		this.context.strokeStyle = 'green';
+		this.context.moveTo(0, 0);
+		this.context.lineTo(a * 400, b * 400);
+		this.context.stroke();
+
+		this.context.beginPath();
+		this.context.strokeStyle = 'red';
+		this.context.moveTo(0, 0);
+		this.context.lineTo(currentX * 400, currentY * 400);
+		this.context.stroke();
+
+		this.context.restore();
+	};
 
 	constructor($injector) {
 		// TODO: refactor all hardcode!
@@ -49,6 +74,12 @@ export class RenderService {
 			this.drawGun(
 				this.tank.coordinates.x,
 				this.tank.coordinates.y,
+				this.tank.turret.angle
+			);
+			this.drawSight(
+				this.tank.coordinates.x,
+				this.tank.coordinates.y,
+				this.tank.turret.targetAngle,
 				this.tank.turret.angle
 			);
 		}, 24);

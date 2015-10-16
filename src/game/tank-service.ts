@@ -80,13 +80,19 @@ export class TankService extends Tank {
 				angle: 15
 			},
 			targetAngle: 1,
+
 			rotate: this.$interval(() => {
 				var stop = this.turret.targetAngle;
 				var start = this.turret.angle;
 
 				if (stop - start > 0.5 || start - stop > 0.5) {
 					console.log('stop: ' + stop + ' start: ' + start + ' angle: ' + this.turret.angle);
-					this.turret.targetAngle > this.turret.angle ? this.turret.angle += 0.5 : this.turret.angle -= 0.5
+
+					if (this.turret.targetAngle > this.turret.angle) {
+						this.turret.angle += this.turret.speed;
+					} else {
+						this.turret.angle -= this.turret.speed;
+					}
 				}
 			}, 50),
 			primary: {

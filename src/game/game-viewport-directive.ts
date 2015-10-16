@@ -8,6 +8,7 @@ export class ViewportDirective implements ng.IDirective {
 	};
 
 	private render;
+
 	constructor($injector) {
 		this.render = $injector.get('render');
 	}
