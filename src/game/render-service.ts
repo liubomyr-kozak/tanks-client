@@ -7,6 +7,7 @@ export class RenderService {
 	private tank;
 	private $rootScope;
 	private $interval;
+	private $window;
 	private renderLoop;
 	private tankImage:HTMLImageElement = document.createElement('img');
 	private gunImage:HTMLImageElement = document.createElement('img');
@@ -70,11 +71,12 @@ export class RenderService {
 		this.$interval = $injector.get('$interval');
 		this.$rootScope = $injector.get('$rootScope');
 		this.tank = $injector.get('tank');
+		this.$window = $injector.get('$window');
 
-		this.canvas.width = 1500;
-		this.canvas.height = 1000;
 		this.tankImage.src = '/tanks/img/platform.png';
 		this.gunImage.src = '/tanks/img/turret.png';
+		this.canvas.width = this.$window.innerWidth;
+		this.canvas.height = this.$window.innerHeight;
 
 
 		this.renderLoop = this.$interval(() => {
