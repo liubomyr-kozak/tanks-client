@@ -1,25 +1,38 @@
 import {controller} from "../annotations";
 
-@controller('GameController', ['tank', '$scope'])
+@controller('GameController', ['$scope', '$injector'])
 export class GameController {
-	constructor(tank, $scope) {
-		$scope.onKeypress = function ($event) {
-			var key = $event.keyCode || $event.which;
-			switch (key) {
-				case 105:
-					tank.forward();
-					break;
-				case 107:
-					tank.backward();
-					break;
-				case 106:
-					tank.left();
-					break;
-				case 108:
-					tank.right();
-					break;
+	constructor($scope, $injector) {
+		var tank = $injector.get('tank');
+		var hotkeys = $injector.get('hotkeys');
+
+		hotkeys.add({
+			combo: 'i',
+			callback: function() {
+				tank.forward();
 			}
-		};
+		});
+
+		hotkeys.add({
+			combo: 'k',
+			callback: function() {
+				tank.backward();
+			}
+		});
+
+		hotkeys.add({
+			combo: 'j',
+			callback: function() {
+				tank.left();
+			}
+		});
+
+		hotkeys.add({
+			combo: 'l',
+			callback: function() {
+				tank.right();
+			}
+		});
 
 		$scope.onMouseMove = function ($event) {
 			tank.updateGunAngle($event.clientX, $event.clientY);
