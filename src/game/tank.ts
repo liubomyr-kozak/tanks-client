@@ -17,7 +17,7 @@ interface Platform {
 	angle: number;
 	movementSpeed: number;
 	rotationSpeed: number;
-	movement;
+	movement: Promise;
 }
 
 interface Turret {
@@ -25,7 +25,7 @@ interface Turret {
 	rotationAngle: number;
 	primary: Weapon;
 	secondary: Weapon;
-	rotation;
+	rotation: Promise;
 }
 
 interface GameObject {
