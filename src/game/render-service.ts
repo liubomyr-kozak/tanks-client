@@ -33,7 +33,7 @@ export class RenderService {
 	};
 	private drawTargetAngle = ():void => {
 		var a = Math.cos(this.tank.turret.targetAngle);
-		var	b = Math.sin(this.tank.turret.targetAngle);
+		var b = Math.sin(this.tank.turret.targetAngle);
 
 		// TODO add firing range ration to (a, b)
 		this.context.save();
