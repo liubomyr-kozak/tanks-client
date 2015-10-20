@@ -15,32 +15,36 @@ export class TankService extends Tank {
 		this.platform.movementSpeed -= 1;
 	};
 	public up = ():void => {
-		this.platform.targetAngle -= 0.1;
-		//this.platform.targetAngle = -1 * Math.PI / 2;
-		//var c = this.calculateMove();
-		//this.coordinates.x += c.x;
-		//this.coordinates.y += c.y;
+		console.log(this.platform.targetAngle);
+		if (this.platform.targetAngle >= (-1 * Math.PI / 2) && this.platform.targetAngle < Math.PI / 2) {
+			this.platform.targetAngle -= 0.1;
+		} else {
+			this.platform.targetAngle += 0.1;
+		}
 	};
 	public down = ():void => {
-		this.platform.targetAngle += 0.1;
-		//this.platform.targetAngle = Math.PI / 2;
-		//var c = this.calculateMove();
-		//this.coordinates.x += c.x;
-		//this.coordinates.y += c.y;
+		console.log(this.platform.targetAngle);
+		if (this.platform.targetAngle >= (-1 * Math.PI / 2) && this.platform.targetAngle < Math.PI / 2) {
+			this.platform.targetAngle += 0.1;
+		} else {
+			this.platform.targetAngle -= 0.1;
+		}
 	};
 	public left = ():void => {
-		this.platform.targetAngle -= 0.1;
-		//this.platform.targetAngle = Math.PI;
-		//var c = this.calculateMove();
-		//this.coordinates.x += c.x;
-		//this.coordinates.y += c.y;
+		console.log(this.platform.targetAngle);
+		if (this.platform.targetAngle >= 0 && this.platform.targetAngle < Math.PI) {
+			this.platform.targetAngle += 0.1;
+		} else {
+			this.platform.targetAngle -= 0.1;
+		}
 	};
 	public right = ():void => {
-		this.platform.targetAngle += 0.1;
-		//this.platform.targetAngle = 0;
-		//var c = this.calculateMove();
-		//this.coordinates.x += c.x;
-		//this.coordinates.y += c.y;
+		console.log(this.platform.targetAngle);
+		if (this.platform.targetAngle >= 0 && this.platform.targetAngle < Math.PI) {
+			this.platform.targetAngle -= 0.1;
+		} else {
+			this.platform.targetAngle += 0.1;
+		}
 	};
 	public updateGunAngle = (x:number, y:number):void => {
 		var a = x - this.coordinates.x;
@@ -80,17 +84,6 @@ export class TankService extends Tank {
 			this.turret.angle = this.turret.targetAngle;
 		}
 	};
-	private platformMovementStep = ():void => {
-		var c = this.calculateMove();
-		this.coordinates.x += c.x;
-		this.coordinates.y += c.y;
-	};
-
-	/*
-	private platformRotationStep = ():void => {
-		this.platform.angle += this.platform.rotationSpeed;
-	};
-	*/
 	private platformRotationStep = ():void => {
 		var deltaAngle = this.normalizeAngle(this.platform.targetAngle - this.platform.angle);
 
@@ -103,6 +96,11 @@ export class TankService extends Tank {
 		} else {
 			this.platform.angle = this.platform.targetAngle;
 		}
+	};
+	private platformMovementStep = ():void => {
+		var c = this.calculateMove();
+		this.coordinates.x += c.x;
+		this.coordinates.y += c.y;
 	};
 
 	constructor($injector) {
