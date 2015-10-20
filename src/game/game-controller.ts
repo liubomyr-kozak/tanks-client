@@ -7,30 +7,44 @@ export class GameController {
 		var hotkeys = $injector.get('hotkeys');
 
 		hotkeys.add({
-			combo: 'i',
+			combo: 'w',
 			callback: function() {
-				tank.forward();
+				tank.up();
 			}
 		});
 
 		hotkeys.add({
-			combo: 'k',
+			combo: 's',
 			callback: function() {
-				tank.backward();
+				tank.down();
 			}
 		});
 
 		hotkeys.add({
-			combo: 'j',
+			combo: 'a',
 			callback: function() {
 				tank.left();
 			}
 		});
 
 		hotkeys.add({
-			combo: 'l',
+			combo: 'd',
 			callback: function() {
 				tank.right();
+			}
+		});
+
+		hotkeys.add({
+			combo: 'e',
+			callback: function() {
+				tank.forward();
+			}
+		});
+
+		hotkeys.add({
+			combo: 'q',
+			callback: function() {
+				tank.backward();
 			}
 		});
 
