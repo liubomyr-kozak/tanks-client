@@ -9,16 +9,32 @@ interface MoveCoordinates {
 @service('tank', ['$injector'])
 export class TankService extends Tank {
 	public forward = ():void => {
-		this.platform.movementSpeed += 1;
+		//this.platform.movementSpeed += 1;
+		this.platform.targetAngle = -1 * Math.PI / 2;
+		var c = this.calculateMove();
+		this.coordinates.x += c.x;
+		this.coordinates.y += c.y;
 	};
 	public backward = ():void => {
-		this.platform.movementSpeed -= 1;
+		//this.platform.movementSpeed -= 1;
+		this.platform.targetAngle = Math.PI / 2;
+		var c = this.calculateMove();
+		this.coordinates.x += c.x;
+		this.coordinates.y += c.y;
 	};
 	public left = ():void => {
-		this.platform.rotationSpeed -= 0.5 * Math.PI / 180;
+		//this.platform.rotationSpeed -= 0.5 * Math.PI / 180;
+		this.platform.targetAngle = Math.PI;
+		var c = this.calculateMove();
+		this.coordinates.x += c.x;
+		this.coordinates.y += c.y;
 	};
 	public right = ():void => {
-		this.platform.rotationSpeed += 0.5 * Math.PI / 180;
+		//this.platform.rotationSpeed += 0.5 * Math.PI / 180;
+		this.platform.targetAngle = 0;
+		var c = this.calculateMove();
+		this.coordinates.x += c.x;
+		this.coordinates.y += c.y;
 	};
 	public updateGunAngle = (x:number, y:number):void => {
 		var a = x - this.coordinates.x;
@@ -58,13 +74,30 @@ export class TankService extends Tank {
 			this.turret.angle = this.turret.targetAngle;
 		}
 	};
+	/*
 	private platformMovementStep = ():void => {
 		var c = this.calculateMove();
 		this.coordinates.x += c.x;
 		this.coordinates.y += c.y;
 	};
+	*/
+	/*
 	private platformRotationStep = ():void => {
 		this.platform.angle += this.platform.rotationSpeed;
+	};
+	*/
+	private platformRotationStep = ():void => {
+		var deltaAngle = this.normalizeAngle(this.platform.targetAngle - this.platform.angle);
+
+		if (deltaAngle > 0.09 || deltaAngle < -(0.09)) {
+			if (deltaAngle > 0) {
+				this.platform.angle += this.platform.speed;
+			} else {
+				this.platform.angle -= this.platform.speed;
+			}
+		} else {
+			this.platform.angle = this.platform.targetAngle;
+		}
 	};
 
 	constructor($injector) {
@@ -82,9 +115,11 @@ export class TankService extends Tank {
 		};
 		this.platform = {
 			angle: 0,
-			movementSpeed: 1,
+			speed: 0.02,
+			targetAngle: 0,
+			movementSpeed: 5,
 			rotationSpeed: 0,
-			movement: this.$interval(this.platformMovementStep, 24),
+			//movement: this.$interval(this.platformMovementStep, 24),
 			rotation: this.$interval(this.platformRotationStep, 24)
 		};
 		this.turret = {
