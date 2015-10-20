@@ -9,14 +9,14 @@ export class GameController {
 		hotkeys.add({
 			combo: 'w',
 			callback: function() {
-				tank.up();
+				tank.forward();
 			}
 		});
 
 		hotkeys.add({
 			combo: 's',
 			callback: function() {
-				tank.down();
+				tank.backward();
 			}
 		});
 
@@ -31,20 +31,6 @@ export class GameController {
 			combo: 'd',
 			callback: function() {
 				tank.right();
-			}
-		});
-
-		hotkeys.add({
-			combo: 'e',
-			callback: function() {
-				tank.forward();
-			}
-		});
-
-		hotkeys.add({
-			combo: 'q',
-			callback: function() {
-				tank.backward();
 			}
 		});
 

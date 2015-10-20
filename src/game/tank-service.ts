@@ -14,37 +14,11 @@ export class TankService extends Tank {
 	public backward = ():void => {
 		this.platform.movementSpeed -= 1;
 	};
-	public up = ():void => {
-		console.log(this.platform.targetAngle);
-		if (this.platform.targetAngle >= (-1 * Math.PI / 2) && this.platform.targetAngle < Math.PI / 2) {
-			this.platform.targetAngle -= 0.1;
-		} else {
-			this.platform.targetAngle += 0.1;
-		}
-	};
-	public down = ():void => {
-		console.log(this.platform.targetAngle);
-		if (this.platform.targetAngle >= (-1 * Math.PI / 2) && this.platform.targetAngle < Math.PI / 2) {
-			this.platform.targetAngle += 0.1;
-		} else {
-			this.platform.targetAngle -= 0.1;
-		}
-	};
 	public left = ():void => {
-		console.log(this.platform.targetAngle);
-		if (this.platform.targetAngle >= 0 && this.platform.targetAngle < Math.PI) {
-			this.platform.targetAngle += 0.1;
-		} else {
-			this.platform.targetAngle -= 0.1;
-		}
+		this.platform.targetAngle -= this.platform.rotationSpeed;
 	};
 	public right = ():void => {
-		console.log(this.platform.targetAngle);
-		if (this.platform.targetAngle >= 0 && this.platform.targetAngle < Math.PI) {
-			this.platform.targetAngle -= 0.1;
-		} else {
-			this.platform.targetAngle += 0.1;
-		}
+		this.platform.targetAngle += this.platform.rotationSpeed;
 	};
 	public updateGunAngle = (x:number, y:number):void => {
 		var a = x - this.coordinates.x;
@@ -120,8 +94,8 @@ export class TankService extends Tank {
 			angle: 0,
 			speed: 0.05,
 			targetAngle: 0,
-			movementSpeed: 1,
-			rotationSpeed: 0,
+			movementSpeed: 0,
+			rotationSpeed: 0.1,
 			movement: this.$interval(this.platformMovementStep, 24),
 			rotation: this.$interval(this.platformRotationStep, 24)
 		};
