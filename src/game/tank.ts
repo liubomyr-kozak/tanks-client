@@ -18,6 +18,7 @@ interface Platform {
 	movementSpeed: number;
 	rotationSpeed: number;
 	movement: Promise;
+	rotation: Promise;
 }
 
 interface Turret {

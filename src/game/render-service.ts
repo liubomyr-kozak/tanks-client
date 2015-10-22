@@ -25,14 +25,14 @@ export class RenderService {
 		this.context.restore();
 	};
 
-	private drawGun = ():void => {
+	private drawTurret = ():void => {
 		this.context.save();
 		this.context.translate(this.tank.coordinates.x, this.tank.coordinates.y);
 		this.context.rotate(this.tank.turret.angle);
 		this.context.drawImage(this.gunImage, -(this.gunImage.width / 2), -(this.gunImage.height / 2));
 		this.context.restore();
 	};
-	private drawTargetAngle = ():void => {
+	private drawAim = ():void => {
 		var a = Math.cos(this.tank.turret.targetAngle);
 		var b = Math.sin(this.tank.turret.targetAngle);
 
@@ -48,7 +48,7 @@ export class RenderService {
 		this.context.stroke();
 		this.context.restore();
 	};
-	private drawCurrentAngle = ():void => {
+	private drawTarget = ():void => {
 		// TODO: add firing range ration to (a, b) & gradient
 		var gradient = this.context.createRadialGradient(0, 0, 400, 0, 0, 0);
 		gradient.addColorStop(0, "white");
@@ -78,13 +78,12 @@ export class RenderService {
 		this.tankImage.src = '../../img/platform.png';
 		this.gunImage.src = '../../img/turret.png';
 
-
 		this.renderLoop = this.$interval(() => {
 			this.clearField();
 			this.drawTank();
-			this.drawCurrentAngle();
-			this.drawTargetAngle();
-			this.drawGun();
+			this.drawTarget();
+			this.drawAim();
+			this.drawTurret();
 		}, 24);
 	}
 }

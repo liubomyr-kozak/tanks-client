@@ -14,11 +14,14 @@ export class TankService extends Tank {
 	public backward = ():void => {
 		this.platform.movementSpeed -= 1;
 	};
-	public left = ():void => {
-		this.platform.targetAngle -= this.platform.rotationSpeed;
+	public turnLeft = ():void => {
+		this.platform.rotationSpeed = -0.05;
 	};
-	public right = ():void => {
-		this.platform.targetAngle += this.platform.rotationSpeed;
+	public turnRight = ():void => {
+		this.platform.rotationSpeed = 0.05;
+	};
+	public stopRotation = ():void => {
+		this.platform.rotationSpeed = 0;
 	};
 	public updateGunAngle = (x:number, y:number):void => {
 		var a = x - this.coordinates.x;
@@ -32,7 +35,7 @@ export class TankService extends Tank {
 		console.log('BOOOM!!');
 	};
 
-	private $interval;
+	private $interval:Function;
 	private calculateMove = ():MoveCoordinates => {
 		return {
 			x: Math.cos(this.platform.angle) * this.platform.movementSpeed,
@@ -47,7 +50,6 @@ export class TankService extends Tank {
 	};
 	private turretRotationStep = ():void => {
 		var deltaAngle = this.normalizeAngle(this.turret.targetAngle - this.turret.angle);
-
 		if (deltaAngle > 0.09 || deltaAngle < -(0.09)) {
 			if (deltaAngle > 0) {
 				this.turret.angle += this.turret.speed;
@@ -58,23 +60,13 @@ export class TankService extends Tank {
 			this.turret.angle = this.turret.targetAngle;
 		}
 	};
-	private platformRotationStep = ():void => {
-		var deltaAngle = this.normalizeAngle(this.platform.targetAngle - this.platform.angle);
-
-		if (deltaAngle > 0.09 || deltaAngle < -(0.09)) {
-			if (deltaAngle > 0) {
-				this.platform.angle += this.platform.speed;
-			} else {
-				this.platform.angle -= this.platform.speed;
-			}
-		} else {
-			this.platform.angle = this.platform.targetAngle;
-		}
-	};
 	private platformMovementStep = ():void => {
 		var c = this.calculateMove();
 		this.coordinates.x += c.x;
 		this.coordinates.y += c.y;
+	};
+	private platformRotationStep = ():void => {
+		this.platform.angle += this.platform.rotationSpeed;
 	};
 
 	constructor($injector) {
@@ -85,7 +77,6 @@ export class TankService extends Tank {
 			x: 400,
 			y: 300,
 		};
-
 		this.condition = {
 			health: 100,
 			armor: 100
@@ -93,9 +84,8 @@ export class TankService extends Tank {
 		this.platform = {
 			angle: 0,
 			speed: 0.05,
-			targetAngle: 0,
 			movementSpeed: 0,
-			rotationSpeed: 0.1,
+			rotationSpeed: 0,
 			movement: this.$interval(this.platformMovementStep, 24),
 			rotation: this.$interval(this.platformRotationStep, 24)
 		};

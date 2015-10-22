@@ -8,41 +8,59 @@ export class GameController {
 
 		hotkeys.add({
 			combo: 'w',
-			callback: function() {
+			callback: ():void =>  {
 				tank.forward();
 			}
 		});
 
 		hotkeys.add({
 			combo: 's',
-			callback: function() {
+			callback: ():void =>  {
 				tank.backward();
 			}
 		});
 
 		hotkeys.add({
 			combo: 'a',
-			callback: function() {
-				tank.left();
+			action: 'keydown',
+			callback: ():void =>  {
+				tank.turnLeft();
+			}
+		});
+
+		hotkeys.add({
+			combo: 'a',
+			action: 'keyup',
+			callback: ():void =>  {
+				tank.stopRotation();
 			}
 		});
 
 		hotkeys.add({
 			combo: 'd',
-			callback: function() {
-				tank.right();
+			action: 'keydown',
+			callback: ():void =>  {
+				tank.turnRight();
 			}
 		});
 
-		$scope.onMouseMove = function ($event) {
+		hotkeys.add({
+			combo: 'd',
+			action: 'keyup',
+			callback: ():void =>  {
+				tank.stopRotation();
+			}
+		});
+
+		$scope.onMouseMove = ($event):void => {
 			tank.updateGunAngle($event.clientX, $event.clientY);
 		};
 
-		$scope.onMouseClick = function ($event) {
+		$scope.onMouseClick = ($event):void => {
 			tank.smallShot($event);
 		};
 
-		$scope.onMouseDbClick = function ($event) {
+		$scope.onMouseDbClick = ($event):void => {
 			tank.bigShot($event);
 		}
 	}
