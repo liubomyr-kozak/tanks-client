@@ -1,14 +1,17 @@
-import {service} from "../annotations";
+import {game} from './@game';
+import {Tank} from './tank';
+import {service} from '../annotations';
 
 @service('render', ['$injector'])
 export class RenderService {
 	public canvas:HTMLCanvasElement = document.createElement('canvas');
 
-	private tank;
-	private $rootScope;
-	private $interval;
-	private $window;
-	private renderLoop;
+	private tank:Tank;
+	private $rootScope:Object;
+	private $interval:Function;
+	private $window:Window;
+	private renderLoop:Promise;
+	private config;
 	private tankImage:HTMLImageElement = document.createElement('img');
 	private gunImage:HTMLImageElement = document.createElement('img');
 	private context:CanvasRenderingContext2D = this.canvas.getContext('2d');
@@ -72,6 +75,7 @@ export class RenderService {
 		this.$rootScope = $injector.get('$rootScope');
 		this.tank = $injector.get('tank');
 		this.$window = $injector.get('$window');
+		this.config = $injector.get('config');
 
 		this.canvas.width = this.$window.innerWidth;
 		this.canvas.height = this.$window.innerHeight;
@@ -84,6 +88,6 @@ export class RenderService {
 			this.drawTarget();
 			this.drawAim();
 			this.drawTurret();
-		}, 24);
+		}, this.config.frameTime);
 	}
 }

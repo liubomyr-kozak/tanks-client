@@ -35,6 +35,7 @@ export class TankService extends Tank {
 		console.log('BOOOM!!');
 	};
 
+	private config;
 	private $interval:Function;
 	private calculateMove = ():MoveCoordinates => {
 		return {
@@ -71,6 +72,7 @@ export class TankService extends Tank {
 
 	constructor($injector) {
 		this.$interval = $injector.get('$interval');
+		this.config = $injector.get('config');
 
 		// TODO: hardcoded model
 		this.coordinates = {
@@ -86,14 +88,14 @@ export class TankService extends Tank {
 			speed: 0.05,
 			movementSpeed: 0,
 			rotationSpeed: 0,
-			movement: this.$interval(this.platformMovementStep, 24),
-			rotation: this.$interval(this.platformRotationStep, 24)
+			movement: this.$interval(this.platformMovementStep, this.config.frameTime),
+			rotation: this.$interval(this.platformRotationStep, this.config.frameTime)
 		};
 		this.turret = {
 			angle: 0,
 			speed: 0.05,
 			targetAngle: 0,
-			rotation: this.$interval(this.turretRotationStep, 24),
+			rotation: this.$interval(this.turretRotationStep, this.config.frameTime),
 			primary: {
 				ammo: 20,
 				power: 75,
