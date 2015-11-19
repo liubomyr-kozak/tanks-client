@@ -1,0 +1,13 @@
+<div ng-controller="RootController as rc" flex layout="column" layout-fill id="layout">
+    <md-toolbar layout layout-align="center center">
+        <h1>Tanks!</h1>
+    </md-toolbar>
+    <md-content flex layout="row">
+        <md-whiteframe flex layout layout-align="center center" class="md-whiteframe-z1 md-margin md-padding">
+            <h2>Destroy</h2>
+        </md-whiteframe>
+        <md-whiteframe flex layout layout-align="center center" class="md-whiteframe-z1 md-margin md-padding">
+            <md-button class="md-primary" ng-click="rc.go('/game')">Play Game</md-button>
+        </md-whiteframe>
+    </md-content>
+</div>
