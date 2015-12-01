@@ -1,27 +1,22 @@
 {
-  "name": "tanks",
-  "version": "1.0.0",
-  "description": "Multiplayer Tanks",
-  "main": "index.js",
-  "dependencies": {
-    "express": "^4.13.3",
-    "http": "0.0.0",
-    "socket.io": "^1.3.7",
-    "systemjs": "^0.19.5",
-    "typescript": "^1.6.2"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/devlysh/tanks.git"
-  },
-  "author": "Artem Devlysh <artem@devlysh.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/devlysh/tanks/issues"
-  },
-  "homepage": "https://github.com/devlysh/tanks#readme"
+  "jspm": {
+    "registry": "jspm",
+    "main": "index.ts",
+    "format": "es6",
+    "directories": {
+      "src": "src"
+    },
+    "dependencies": {
+      "angular": "github:angular/bower-angular@^1.4.7",
+      "angular-material": "github:angular/bower-material@^0.11.2",
+      "angular-route": "github:angular/bower-angular-route@^1.4.7",
+      "core-js": "npm:core-js@^0.9.4",
+      "css": "github:systemjs/plugin-css@^0.1.18",
+      "socket.io": "github:socketio/socket.io-client@^1.3.7",
+      "text": "github:systemjs/plugin-text@^0.0.2"
+    },
+    "devDependencies": {
+      "typescript": "npm:typescript@^1.6.2"
+    }
+  }
 }

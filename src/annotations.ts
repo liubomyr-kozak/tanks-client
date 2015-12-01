@@ -1,4 +1,4 @@
-// thanx to Valentyn Shybanov <olostan>
+// thanx Valentyn Shybanov <olostan>
 interface Function {
     (...any):any;
     $inject?: any;

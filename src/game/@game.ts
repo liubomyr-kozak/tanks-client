@@ -1,8 +1,8 @@
 import * as ng from 'angular';
 import {register} from '../annotations';
-
 import {gameConfig} from './game-config';
-export var game = ng.module('game', [])
+
+export var game = ng.module('tanks.game', [])
     .config(gameConfig);
 
 import {ViewportDirective} from './game-viewport-directive';
@@ -13,7 +13,5 @@ import {RenderService} from './game-render-service';
 register(game, RenderService);
 import {TankService} from './game-tank-service';
 register(game, TankService);
-import {ConfigFactory} from './game-config-factory';
+import {ConfigFactory} from './game-config-service';
 register(game, ConfigFactory);
-import {IOService} from './game-io-service';
-register(game, IOService);

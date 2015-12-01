@@ -4,7 +4,7 @@ import {directive} from '../annotations';
 
 @directive('gameViewport', [
     '$window',
-    'game.render'
+    'render'
 ])
 export class ViewportDirective implements ng.IDirective {
     constructor(private $window:ng.IWindowService,

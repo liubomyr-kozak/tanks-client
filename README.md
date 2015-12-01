@@ -10,13 +10,3 @@ To install it you need [Node](https://nodejs.org/en/) (with [NPM](https://www.np
 `npm i -g jspm`
 
 `jspm install`
-
-Then run server: 
-
-`npm i -g http-server`
-
-`http-server . -p 8888`
-
-and open [http://localhost:8888/](http://localhost:8888/)
-
-Cheers! :beers:

@@ -2,21 +2,21 @@
 import * as ng from 'angular';
 
 import {game} from './@game';
-import {Tank} from './tank';
+import {ITank} from './game-tank-service';
 import {service} from '../annotations';
 
-@service('game.render', [
+@service('render', [
     '$interval',
     '$rootScope',
     '$window',
-    'game.tank',
-    'game.config'
+    'tank',
+    'config'
 ])
 export class RenderService {
     constructor(private $interval:ng.IIntervalService,
                 private $rootScope:ng.IRootScopeService,
                 private $window:ng.IWindowService,
-                private tank:Tank,
+                private tank:ITank,
                 private config) {
         // TODO: refactor all hardcode!
         this.canvas.width = this.$window.innerWidth;
@@ -79,7 +79,8 @@ export class RenderService {
 
     private drawTarget = ():void => {
         // TODO: add firing range ration to (a, b) & gradient
-        var gradient = this.context.createRadialGradient(0, 0, 400, 0, 0, 0);
+        var gradient;
+        gradient = this.context.createRadialGradient(0, 0, 400, 0, 0, 0);
         gradient.addColorStop(0, "white");
         gradient.addColorStop(1, "red");
         this.context.save();
