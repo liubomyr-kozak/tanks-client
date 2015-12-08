@@ -1,6 +1,7 @@
 import * as ng from 'angular';
 import {register} from '../annotations';
 import {gameConfig} from './game-config';
+import './game.css!css';
 
 export var game = ng.module('tanks.game', [])
     .config(gameConfig);
