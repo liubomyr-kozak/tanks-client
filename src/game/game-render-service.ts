@@ -35,18 +35,14 @@ export class RenderService {
 
     private renderStep = () => {
         this.clearField();
-
-        if (this.tanks.own) {
-            this.drawTarget();
-            this.drawAim();
-            this.drawTank(this.tanks.own);
-            this.drawTurret(this.tanks.own);
-        }
-
         this.tanks.others.forEach((tank) => {
             this.drawTank(tank);
             this.drawTurret(tank);
         });
+        this.drawTarget();
+        this.drawAim();
+        this.drawTank(this.tanks.own);
+        this.drawTurret(this.tanks.own);
     };
 
     private clearField = ():void => {
@@ -77,10 +73,10 @@ export class RenderService {
         this.context.translate(this.tanks.own.x, this.tanks.own.y);
         this.context.beginPath();
         this.context.lineWidth = 1;
-        this.context.setLineDash([5, 50]);
-        this.context.strokeStyle = 'red';
+        this.context.setLineDash([5, 30]);
+        this.context.strokeStyle = 'rgba(200,50,0,1)';
         this.context.moveTo(0, 0);
-        this.context.lineTo(a * 400, b * 400);
+        this.context.lineTo(a * 600, b * 600);
         this.context.stroke();
         this.context.restore();
     };
@@ -88,16 +84,16 @@ export class RenderService {
     private drawTarget = ():void => {
         // TODO: add firing range ration to (a, b) & gradient
         var gradient;
-        gradient = this.context.createRadialGradient(0, 0, 400, 0, 0, 0);
-        gradient.addColorStop(0, "white");
-        gradient.addColorStop(1, "red");
+        gradient = this.context.createRadialGradient(0, 0, 600, 0, 0, 0);
+        gradient.addColorStop(0, 'rgba(255,0,0,0)');
+        gradient.addColorStop(1, 'rgba(225,0,0,1)');
         this.context.save();
         this.context.translate(this.tanks.own.x, this.tanks.own.y);
         this.context.rotate(this.tanks.own.turretAngle);
         this.context.beginPath();
-        this.context.lineWidth = 350;
+        this.context.lineWidth = 550;
         this.context.strokeStyle = gradient;
-        this.context.arc(0, 0, 400, -0.05, 0.05);
+        this.context.arc(0, 0, 500, -0.03, 0.03);
         this.context.stroke();
         this.context.restore();
     };
