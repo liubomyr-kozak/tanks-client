@@ -25,8 +25,7 @@ export class TanksService {
             this.own.y = data.own.y;
             this.own.platformAngle = data.own.platformAngle;
             this.own.turretAngle = data.own.turretAngle;
-
-            this.elses = data.elses;
+            this.others = data.others;
         });
     }
 
@@ -38,7 +37,7 @@ export class TanksService {
         targetAngle: 0
     };
 
-    public elses:ITank[] = [];
+    public others:ITank[] = [];
 
     public updateTargetAngle = (x:number, y:number):void => {
         var a = x - this.own.x;

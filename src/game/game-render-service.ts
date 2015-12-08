@@ -43,7 +43,7 @@ export class RenderService {
             this.drawTurret(this.tanks.own);
         }
 
-        this.tanks.elses.forEach((tank) => {
+        this.tanks.others.forEach((tank) => {
             this.drawTank(tank);
             this.drawTurret(tank);
         });
