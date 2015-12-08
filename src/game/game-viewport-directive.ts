@@ -29,9 +29,5 @@ export class ViewportDirective implements ng.IDirective {
         gameViewport.addEventListener('focus', () => {
             pauseScreen.style.display = 'none';
         });
-        this.$window.addEventListener('resize', () => {
-            this.render.canvas.width = this.$window.innerWidth;
-            this.render.canvas.height = this.$window.innerHeight;
-        });
     };
 }
