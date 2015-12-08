@@ -2,21 +2,21 @@
 import * as ng from 'angular';
 
 import {game} from './@game';
-import {ITank} from './game-tank-service';
+import {TanksService, ITank} from './game-tanks-service';
 import {service} from '../annotations';
 
 @service('render', [
     '$interval',
     '$rootScope',
     '$window',
-    'tank',
+    'tanks',
     'config'
 ])
 export class RenderService {
     constructor(private $interval:ng.IIntervalService,
                 private $rootScope:ng.IRootScopeService,
                 private $window:ng.IWindowService,
-                private tank:ITank,
+                private tanks:TanksService,
                 private config) {
         // TODO: refactor all hardcode!
         this.canvas.width = this.$window.innerWidth;
@@ -35,38 +35,46 @@ export class RenderService {
 
     private renderStep = () => {
         this.clearField();
-        this.drawTank();
-        this.drawTarget();
-        this.drawAim();
-        this.drawTurret();
+
+        if (this.tanks.own) {
+            this.drawTarget();
+            this.drawAim();
+            this.drawTank(this.tanks.own);
+            this.drawTurret(this.tanks.own);
+        }
+
+        this.tanks.elses.forEach((tank) => {
+            this.drawTank(tank);
+            this.drawTurret(tank);
+        });
     };
 
     private clearField = ():void => {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     };
 
-    private drawTank = ():void => {
+    private drawTank = (tank:ITank):void => {
         this.context.save();
-        this.context.translate(this.tank.coordinates.x, this.tank.coordinates.y);
-        this.context.rotate(this.tank.platform.angle);
+        this.context.translate(tank.x, tank.y);
+        this.context.rotate(tank.platformAngle);
         this.context.drawImage(this.tankImage, -(this.tankImage.width / 2), -(this.tankImage.height / 2));
         this.context.restore();
     };
 
-    private drawTurret = ():void => {
+    private drawTurret = (tank:ITank):void => {
         this.context.save();
-        this.context.translate(this.tank.coordinates.x, this.tank.coordinates.y);
-        this.context.rotate(this.tank.turret.angle);
+        this.context.translate(tank.x, tank.y);
+        this.context.rotate(tank.turretAngle);
         this.context.drawImage(this.gunImage, -(this.gunImage.width / 2), -(this.gunImage.height / 2));
         this.context.restore();
     };
 
     private drawAim = ():void => {
         // TODO add firing range ration to (a, b)
-        var a = Math.cos(this.tank.turret.targetAngle);
-        var b = Math.sin(this.tank.turret.targetAngle);
+        var a = Math.cos(this.tanks.own.targetAngle);
+        var b = Math.sin(this.tanks.own.targetAngle);
         this.context.save();
-        this.context.translate(this.tank.coordinates.x, this.tank.coordinates.y);
+        this.context.translate(this.tanks.own.x, this.tanks.own.y);
         this.context.beginPath();
         this.context.lineWidth = 1;
         this.context.setLineDash([5, 50]);
@@ -84,8 +92,8 @@ export class RenderService {
         gradient.addColorStop(0, "white");
         gradient.addColorStop(1, "red");
         this.context.save();
-        this.context.translate(this.tank.coordinates.x, this.tank.coordinates.y);
-        this.context.rotate(this.tank.turret.angle);
+        this.context.translate(this.tanks.own.x, this.tanks.own.y);
+        this.context.rotate(this.tanks.own.turretAngle);
         this.context.beginPath();
         this.context.lineWidth = 350;
         this.context.strokeStyle = gradient;

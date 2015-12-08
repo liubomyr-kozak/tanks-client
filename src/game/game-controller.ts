@@ -1,24 +1,46 @@
-import {TankService} from './game-tank-service';
+import {TanksService} from './game-tanks-service';
 import {controller} from "../annotations";
 
 @controller('GameController', [
     '$scope',
-    'tank'
+    'tanks'
 ])
 export class GameController {
     constructor($scope,
-                tank:TankService) {
+                tanks:TanksService) {
 
         $scope.onMouseMove = ($event):void => {
-            tank.updateGunAngle($event.clientX, $event.clientY);
+            tanks.updateTargetAngle($event.clientX, $event.clientY);
         };
 
-        $scope.onMouseClick = ():void => {
-            tank.smallShot();
+        $scope.onKeypress = ($event, isDown) => {
+            var key = $event.keyCode || $event.charCode;
+
+            if (key === 87 && isDown) {
+                tanks.startGas();
+            }
+
+            if (key === 83 && isDown) {
+                tanks.startBreak();
+            }
+
+            if (key === 65 && isDown) {
+                tanks.startTurnLeft();
+            }
+            if (key === 65 && !isDown) {
+                tanks.stopTurnLeft();
+            }
+
+            if (key === 68 && isDown) {
+                tanks.startTurnRight();
+            }
+            if (key === 68 && !isDown) {
+                tanks.stopTurnRight();
+            }
         };
 
-        $scope.onMouseDbClick = ():void => {
-            tank.bigShot();
-        };
+        //$scope.onMouseClick = ():void => {
+        //    tank.smallShot();
+        //};
     }
 }

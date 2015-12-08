@@ -32,7 +32,7 @@ System.config({
     "angular-route": "github:angular/bower-angular-route@1.4.7",
     "core-js": "npm:core-js@0.9.18",
     "css": "github:systemjs/plugin-css@0.1.18",
-    "socket.io": "github:socketio/socket.io-client@1.3.7",
+    "socket.io-client": "github:socketio/socket.io-client@1.3.7",
     "text": "github:systemjs/plugin-text@0.0.2",
     "ts": "github:frankwallis/plugin-typescript@2.0.17",
     "typescript": "npm:typescript@1.6.2",
