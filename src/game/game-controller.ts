@@ -19,9 +19,15 @@ export class GameController {
             if (key === 87 && isDown) {
                 tanks.startGas();
             }
+            if (key === 87 && !isDown) {
+                tanks.stopGas();
+            }
 
             if (key === 83 && isDown) {
                 tanks.startBreak();
+            }
+            if (key === 83 && !isDown) {
+                tanks.stopBreak();
             }
 
             if (key === 65 && isDown) {

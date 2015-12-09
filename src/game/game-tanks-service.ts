@@ -58,33 +58,27 @@ export class TanksService {
     //};
 
     public startGas = ():void => {
-        //console.log('startGas');
         this.socket.emit('startGas');
     };
-    //public stopGas = ():void => {
-    //    console.log('stopGas');
-    //};
+    public stopGas = ():void => {
+        this.socket.emit('stopGas');
+    };
     public startBreak = ():void => {
-        //console.log('startBreak');
         this.socket.emit('startBreak');
     };
-    //public stopBreak = ():void => {
-    //    console.log('stopBreak');
-    //};
+    public stopBreak = ():void => {
+        this.socket.emit('stopBreak');
+    };
     public startTurnLeft = ():void => {
-        //console.log('startTurnLeft');
         this.socket.emit('startTurnLeft');
     };
     public stopTurnLeft = ():void => {
-        //console.log('stopTurnLeft');
         this.socket.emit('stopTurnLeft');
     };
     public startTurnRight = ():void => {
-        //console.log('startTurnRight');
         this.socket.emit('startTurnRight');
     };
     public stopTurnRight = ():void => {
-        //console.log('stopTurnRight');
         this.socket.emit('stopTurnRight');
     };
 
