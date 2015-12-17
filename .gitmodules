@@ -1,0 +1,4 @@
+[submodule "tanks-client"]
+	path = tanks-client
+	url = https://github.com/devlysh/tanks-client
+	branch = master

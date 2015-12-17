@@ -45,8 +45,8 @@ export class GameController {
             }
         };
 
-        //$scope.onMouseClick = ():void => {
-        //    tank.smallShot();
-        //};
+        $scope.onMouseClick = ($event):void => {
+            tanks.gunShot();
+        };
     }
 }

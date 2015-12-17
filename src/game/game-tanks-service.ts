@@ -46,40 +46,48 @@ export class TanksService {
         this.socket.emit('updateTargetAngle', this.own.targetAngle);
     };
 
-    private calculateTargetAngle = (x:number, y:number):number => {
-        return Math.atan2(y, x);
-    };
-
-    //public smallShot = ():void => {
-    //    console.log('boom!');
-    //};
     //public bigShot = ():void => {
     //    console.log('BOOOM!!');
     //};
 
+    public gunShot = ():void => {
+        this.socket.emit('gunShot');
+    };
+
     public startGas = ():void => {
         this.socket.emit('startGas');
     };
+
     public stopGas = ():void => {
         this.socket.emit('stopGas');
     };
+
     public startBreak = ():void => {
         this.socket.emit('startBreak');
     };
+
     public stopBreak = ():void => {
         this.socket.emit('stopBreak');
     };
+
     public startTurnLeft = ():void => {
         this.socket.emit('startTurnLeft');
     };
+
     public stopTurnLeft = ():void => {
         this.socket.emit('stopTurnLeft');
     };
+
     public startTurnRight = ():void => {
         this.socket.emit('startTurnRight');
     };
+
     public stopTurnRight = ():void => {
         this.socket.emit('stopTurnRight');
+    };
+
+    private calculateTargetAngle = (x:number, y:number):number => {
+        return Math.atan2(y, x);
     };
 
     private socket = this.io.socket;
